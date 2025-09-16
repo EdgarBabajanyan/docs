@@ -1,0 +1,78 @@
+---
+title: 'List Buckets'
+api: 'GET /list-buckets'
+description: 'Get a list of all buckets'
+---
+
+This endpoint lists all buckets associated with your account.
+
+### Parameters
+
+<ParamField query="sortBy" type="string" required={false}>
+  Optional. Sort results by: "Oldest", "Newest", "Alphabetical", or "Reverse-Alphabetical".
+</ParamField>
+
+<ParamField query="page" type="integer" required={false}>
+  Page number for paginated responses.
+</ParamField>
+
+<ParamField query="limit" type="integer" required={false}>
+  Number of results per page.
+</ParamField>
+
+<ParamField body="apiKey" type="string" required={true}>
+  Your Captain API key.
+</ParamField>
+
+<ParamField body="clientID" type="string" required={true}>
+  Your Captain user ID.
+</ParamField>
+
+### Response
+
+<ResponseField name="buckets" type="object[]">
+  Map of all buckets on the account.
+</ResponseField>
+
+<ResponseField name="success" type="boolean">
+  Indicates if the request was successful.
+</ResponseField>
+
+<ResponseField name="error" type="string">
+  Error message if request failed.
+</ResponseField>
+
+### Error Codes
+
+<ResponseField name="500" type="object">
+  Server error.
+</ResponseField>
+
+### Example Request
+
+```bash
+curl -X GET "https://api.runcaptain.com/list-buckets?sortBy=Alphabetical&page=1&limit=10" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "apiKey": "your_api_key",
+    "clientID": "your_client_id"
+  }'
+```
+
+### Example Response
+
+```json
+{
+  "buckets": [
+    {
+      "name": "documents",
+      "createdAt": "2023-10-15T14:30:00Z"
+    },
+    {
+      "name": "images",
+      "createdAt": "2023-09-22T09:15:00Z"
+    }
+  ],
+  "success": true
+}
+```

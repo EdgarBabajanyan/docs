@@ -1,0 +1,79 @@
+---
+title: 'Upload File'
+api: 'POST /upload'
+description: 'Upload a file to S3'
+---
+
+This endpoint uploads a file to S3. Storage size is tracked (in MBs) and stored in Convex for billing.
+
+### Parameters
+
+<ParamField body="databaseID" type="integer" required={true}>
+  Database ID where the file will be associated.
+</ParamField>
+
+<ParamField body="bucketName" type="string" required={true}>
+  Name of the bucket where the file will be stored.
+</ParamField>
+
+<ParamField body="apiKey" type="string" required={true}>
+  Your Captain API key.
+</ParamField>
+
+<ParamField body="clientID" type="string" required={true}>
+  Your Captain user ID.
+</ParamField>
+
+<ParamField body="indexAfterUploading" type="boolean" required={false}>
+  Optional. Whether to index the file after upload.
+</ParamField>
+
+### Response
+
+<ResponseField name="fileID" type="integer">
+  File ID number assigned to the uploaded file.
+</ResponseField>
+
+<ResponseField name="success" type="boolean">
+  Indicates if the upload was successful.
+</ResponseField>
+
+<ResponseField name="error" type="string">
+  Error message if upload failed.
+</ResponseField>
+
+### Error Codes
+
+<ResponseField name="400" type="object">
+  Unsupported file type.
+</ResponseField>
+
+<Note>
+  File type validation is based on an allow-list of supported file types. File types like .mov and .mp4 are not supported.
+</Note>
+
+<Note>
+  Multipart upload support for S3 is available as per [AWS documentation](https://docs.aws.amazon.com/AmazonS3/latest/userguide/mpuoverview.html).
+</Note>
+
+### Example Request
+
+```bash
+curl -X POST https://api.runcaptain.com/upload \
+  -H "Content-Type: multipart/form-data" \
+  -F "file=@document.pdf" \
+  -F "databaseID=12345" \
+  -F "bucketName=my-documents" \
+  -F "apiKey=your_api_key" \
+  -F "clientID=your_client_id" \
+  -F "indexAfterUploading=true"
+```
+
+### Example Response
+
+```json
+{
+  "fileID": 67890,
+  "success": true
+}
+```

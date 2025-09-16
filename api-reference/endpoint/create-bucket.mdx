@@ -1,0 +1,66 @@
+---
+title: 'Create Bucket'
+api: 'POST /create-bucket'
+description: 'Create a new bucket for file uploads'
+---
+
+This endpoint is used to create a new bucket where you can upload files.
+
+### Parameters
+
+<ParamField body="bucketName" type="string" required={false}>
+  Optional. Name for your bucket. Must be unique within your account.
+</ParamField>
+
+<ParamField body="apiKey" type="string" required={true}>
+  Your Captain API key.
+</ParamField>
+
+<ParamField body="clientID" type="string" required={true}>
+  Your Captain user ID.
+</ParamField>
+
+### Response
+
+<ResponseField name="bucketName" type="string">
+  Confirmation of the created bucket name.
+</ResponseField>
+
+<ResponseField name="success" type="boolean">
+  Indicates if the bucket creation was successful.
+</ResponseField>
+
+<ResponseField name="error" type="string">
+  Error message if bucket creation failed.
+</ResponseField>
+
+### Error Codes
+
+<ResponseField name="400" type="object">
+  Unsupported bucketName strings.
+</ResponseField>
+
+<ResponseField name="409" type="object">
+  The bucketName is already in use.
+</ResponseField>
+
+### Example Request
+
+```bash
+curl -X POST https://api.runcaptain.com/create-bucket \
+  -H "Content-Type: application/json" \
+  -d '{
+    "bucketName": "my-documents",
+    "apiKey": "your_api_key",
+    "clientID": "your_client_id"
+  }'
+```
+
+### Example Response
+
+```json
+{
+  "bucketName": "my-documents",
+  "success": true
+}
+```

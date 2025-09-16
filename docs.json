@@ -1,68 +1,57 @@
 {
   "$schema": "https://mintlify.com/docs.json",
-  "theme": "mint",
-  "name": "Mint Starter Kit",
+  "theme": "blue",
+  "name": "Captain API Documentation",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#009EFF",
+    "light": "#47C1FF",
+    "dark": "#0085D6",
+    "background": {
+      "dark": "#0F1629",
+      "light": "#F8FAFF"
+    }
   },
   "favicon": "/favicon.svg",
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "API Reference",
         "groups": [
           {
-            "group": "Getting started",
-            "pages": [
-              "index",
-              "quickstart",
-              "development"
-            ]
-          },
-          {
-            "group": "Customization",
-            "pages": [
-              "essentials/settings",
-              "essentials/navigation"
-            ]
-          },
-          {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
-            ]
-          }
-        ]
-      },
-      {
-        "tab": "API reference",
-        "groups": [
-          {
-            "group": "API documentation",
+            "group": "Introduction",
             "pages": [
               "api-reference/introduction"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Buckets",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "api-reference/endpoint/create-bucket",
+              "api-reference/endpoint/delete-bucket",
+              "api-reference/endpoint/list-buckets",
+              "api-reference/endpoint/upload"
+            ]
+          },
+          {
+            "group": "Databases",
+            "pages": [
+              "api-reference/endpoint/create-database",
+              "api-reference/endpoint/delete-database",
+              "api-reference/endpoint/list-databases"
+            ]
+          },
+          {
+            "group": "Indexing",
+            "pages": [
+              "api-reference/endpoint/index",
+              "api-reference/endpoint/index-all"
+            ]
+          },
+          {
+            "group": "Query",
+            "pages": [
+              "api-reference/endpoint/query",
+              "api-reference/endpoint/presign-url"
             ]
           }
         ]
@@ -71,19 +60,14 @@
     "global": {
       "anchors": [
         {
+          "anchor": "Captain Dashboard",
+          "href": "https://app.runcaptain.com",
+          "icon": "bolt"
+        },
+        {
           "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
+          "href": "https://docs.runcaptain.com",
           "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Community",
-          "href": "https://mintlify.com/community",
-          "icon": "slack"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
         }
       ]
     }
@@ -96,13 +80,13 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:support@runcaptain.com"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "href": "https://app.runcaptain.com"
     }
   },
   "contextual": {
@@ -119,9 +103,8 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/runcaptain",
+      "github": "https://github.com/runcaptain"
     }
   }
 }

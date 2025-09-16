@@ -1,0 +1,83 @@
+---
+title: 'Index All Files'
+api: 'POST /index-all'
+description: 'Index an entire bucket of files for querying'
+---
+
+This endpoint processes all files in a bucket to make them queryable. The data flow is: Bucket data ➡️ Tagger ➡️ Postgres Populated!
+
+<Note>
+  Indexing DELETES any previously indexed files that share the same unique_id as each file in the bucket.
+  Before a file is indexed, Postgres is searched for that file's unique_id. If an existing row matches, 
+  then that row is wiped, and after the files are all indexed, this row is re-created.
+  
+  Existing rows that were previously indexed by Tagger remain UNTOUCHED if the bucket being indexed 
+  doesn't contain any files with the same file unique_id.
+</Note>
+
+### Parameters
+
+<ParamField body="databaseName" type="string" required={true}>
+  Name of the database where files will be indexed.
+</ParamField>
+
+<ParamField body="bucketName" type="string" required={true}>
+  Name of the bucket containing the files to index.
+</ParamField>
+
+<ParamField body="apiKey" type="string" required={true}>
+  Your Captain API key.
+</ParamField>
+
+<ParamField body="clientID" type="string" required={true}>
+  Your Captain user ID.
+</ParamField>
+
+### Response
+
+<ResponseField name="databaseFileIDs" type="string[]">
+  List of IDs for the indexed files in the database (e.g., ["0Bio7CShWYSVW9f9ce3jngvG0Bh2", ...]).
+</ResponseField>
+
+<ResponseField name="success" type="boolean">
+  Indicates if the indexing was successful.
+</ResponseField>
+
+<ResponseField name="error" type="string">
+  Error message if indexing failed.
+</ResponseField>
+
+### Error Codes
+
+<ResponseField name="400" type="object">
+  Unsupported file types detected in the bucket.
+</ResponseField>
+
+<Note>
+  File type validation is based on an allow-list of supported file types. File types like .mov and .mp4 are not supported.
+</Note>
+
+### Example Request
+
+```bash
+curl -X POST https://api.runcaptain.com/index-all \
+  -H "Content-Type: application/json" \
+  -d '{
+    "databaseName": "my-knowledge-base",
+    "bucketName": "my-documents",
+    "apiKey": "your_api_key",
+    "clientID": "your_client_id"
+  }'
+```
+
+### Example Response
+
+```json
+{
+  "databaseFileIDs": [
+    "0Bio7CShWYSVW9f9ce3jngvG0Bh2",
+    "1Cjp8DtIXYtWX0g0df4kohwH1Ci3"
+  ],
+  "success": true
+}
+```

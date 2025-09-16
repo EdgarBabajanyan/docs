@@ -1,0 +1,88 @@
+---
+title: 'Query'
+api: 'POST /query'
+description: 'Talk to your data'
+---
+
+This endpoint allows you to query your indexed data.
+
+### Parameters
+
+<ParamField body="databaseName" type="string" required={true}>
+  Name of the database to query.
+</ParamField>
+
+<ParamField body="query" type="string" required={true}>
+  The query string to search for in the database.
+</ParamField>
+
+<ParamField body="apiKey" type="string" required={true}>
+  Your Captain API key.
+</ParamField>
+
+<ParamField body="clientID" type="string" required={true}>
+  Your Captain user ID.
+</ParamField>
+
+### Response
+
+<ResponseField name="relevantFiles" type="object[]">
+  Array of relevant files that match the query:
+  <Expandable title="Properties">
+    <ResponseField name="relevancyScore" type="float">
+      Score indicating how relevant the file is to the query.
+    </ResponseField>
+    <ResponseField name="fileBucketName" type="string">
+      Name of the bucket containing the file.
+    </ResponseField>
+    <ResponseField name="uniqueFileID" type="string">
+      Unique ID of the file from source S3.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="response" type="string">
+  The generated response based on the query and data.
+</ResponseField>
+
+<ResponseField name="success" type="boolean">
+  Indicates if the query was successful.
+</ResponseField>
+
+<ResponseField name="error" type="string">
+  Error message if the query failed.
+</ResponseField>
+
+### Example Request
+
+```bash
+curl -X POST https://api.runcaptain.com/query \
+  -H "Content-Type: application/json" \
+  -d '{
+    "databaseName": "my-knowledge-base",
+    "query": "What are the key features of our product?",
+    "apiKey": "your_api_key",
+    "clientID": "your_client_id"
+  }'
+```
+
+### Example Response
+
+```json
+{
+  "relevantFiles": [
+    {
+      "relevancyScore": 0.89,
+      "fileBucketName": "product-docs",
+      "uniqueFileID": "file123"
+    },
+    {
+      "relevancyScore": 0.76,
+      "fileBucketName": "marketing-materials",
+      "uniqueFileID": "file456"
+    }
+  ],
+  "response": "The key features of our product include real-time data processing, advanced analytics, and seamless integration with third-party tools.",
+  "success": true
+}
+```

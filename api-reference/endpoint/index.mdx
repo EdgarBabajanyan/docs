@@ -1,0 +1,76 @@
+---
+title: 'Index File'
+api: 'POST /index'
+description: 'Index an individual file for querying'
+---
+
+This endpoint processes a file to make it queryable. The data flow is: Bucket data ➡️ Tagger ➡️ Postgres Populated!
+
+### Parameters
+
+<ParamField body="databaseName" type="string" required={true}>
+  Name of the database where the file will be indexed.
+</ParamField>
+
+<ParamField body="bucketName" type="string" required={true}>
+  Name of the bucket containing the file.
+</ParamField>
+
+<ParamField body="bucketFileID" type="string" required={true}>
+  ID of the file to index.
+</ParamField>
+
+<ParamField body="apiKey" type="string" required={true}>
+  Your Captain API key.
+</ParamField>
+
+<ParamField body="clientID" type="string" required={true}>
+  Your Captain user ID.
+</ParamField>
+
+### Response
+
+<ResponseField name="databaseFileID" type="string">
+  ID of the indexed file in the database (e.g., "0Bio7CShWYSVW9f9ce3jngvG0Bh2").
+</ResponseField>
+
+<ResponseField name="success" type="boolean">
+  Indicates if the indexing was successful.
+</ResponseField>
+
+<ResponseField name="error" type="string">
+  Error message if indexing failed.
+</ResponseField>
+
+### Error Codes
+
+<ResponseField name="400" type="object">
+  Unsupported file type.
+</ResponseField>
+
+<Note>
+  File type validation is based on an allow-list of supported file types. File types like .mov and .mp4 are not supported.
+</Note>
+
+### Example Request
+
+```bash
+curl -X POST https://api.runcaptain.com/index \
+  -H "Content-Type: application/json" \
+  -d '{
+    "databaseName": "my-knowledge-base",
+    "bucketName": "my-documents",
+    "bucketFileID": "file123",
+    "apiKey": "your_api_key",
+    "clientID": "your_client_id"
+  }'
+```
+
+### Example Response
+
+```json
+{
+  "databaseFileID": "0Bio7CShWYSVW9f9ce3jngvG0Bh2",
+  "success": true
+}
+```

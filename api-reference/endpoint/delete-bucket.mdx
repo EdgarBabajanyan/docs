@@ -1,0 +1,61 @@
+---
+title: 'Delete Bucket'
+api: 'DELETE /delete-bucket'
+description: 'Delete an existing bucket'
+---
+
+This endpoint is used to delete a bucket.
+
+### Parameters
+
+<ParamField body="bucketName" type="string" required={true}>
+  Name of the bucket to delete.
+</ParamField>
+
+<ParamField body="apiKey" type="string" required={true}>
+  Your Captain API key.
+</ParamField>
+
+<ParamField body="clientID" type="string" required={true}>
+  Your Captain user ID.
+</ParamField>
+
+### Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the bucket deletion was successful.
+</ResponseField>
+
+<ResponseField name="error" type="string">
+  Error message if bucket deletion failed.
+</ResponseField>
+
+### Error Codes
+
+<ResponseField name="404" type="object">
+  No bucket with that name exists.
+</ResponseField>
+
+<ResponseField name="500" type="object">
+  Server error.
+</ResponseField>
+
+### Example Request
+
+```bash
+curl -X DELETE https://api.runcaptain.com/delete-bucket \
+  -H "Content-Type: application/json" \
+  -d '{
+    "bucketName": "my-documents",
+    "apiKey": "your_api_key",
+    "clientID": "your_client_id"
+  }'
+```
+
+### Example Response
+
+```json
+{
+  "success": true
+}
+```

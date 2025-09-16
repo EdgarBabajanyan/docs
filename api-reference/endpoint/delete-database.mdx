@@ -1,0 +1,61 @@
+---
+title: 'Delete Database'
+api: 'DELETE /delete-database'
+description: 'Delete an existing database'
+---
+
+This endpoint is used to delete a database.
+
+### Parameters
+
+<ParamField body="databaseName" type="string" required={true}>
+  Name of the database to delete.
+</ParamField>
+
+<ParamField body="apiKey" type="string" required={true}>
+  Your Captain API key.
+</ParamField>
+
+<ParamField body="clientID" type="string" required={true}>
+  Your Captain user ID.
+</ParamField>
+
+### Response
+
+<ResponseField name="success" type="boolean">
+  Indicates if the database deletion was successful.
+</ResponseField>
+
+<ResponseField name="error" type="string">
+  Error message if database deletion failed.
+</ResponseField>
+
+### Error Codes
+
+<ResponseField name="404" type="object">
+  No database with that name exists.
+</ResponseField>
+
+<ResponseField name="500" type="object">
+  Server error.
+</ResponseField>
+
+### Example Request
+
+```bash
+curl -X DELETE https://api.runcaptain.com/delete-database \
+  -H "Content-Type: application/json" \
+  -d '{
+    "databaseName": "my-knowledge-base",
+    "apiKey": "your_api_key",
+    "clientID": "your_client_id"
+  }'
+```
+
+### Example Response
+
+```json
+{
+  "success": true
+}
+```

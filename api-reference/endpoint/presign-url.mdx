@@ -1,0 +1,61 @@
+---
+title: 'Presign URL'
+api: 'POST /presign-url'
+description: 'Generate a presigned URL to access relevant files'
+---
+
+This endpoint generates a presigned URL to access files identified from a /query operation.
+
+### Parameters
+
+<ParamField body="uniqueFileID" type="string" required={true}>
+  Unique ID of the file to access.
+</ParamField>
+
+<ParamField body="fileBucketName" type="string" required={true}>
+  Name of the bucket containing the file.
+</ParamField>
+
+<ParamField body="apiKey" type="string" required={true}>
+  Your Captain API key.
+</ParamField>
+
+<ParamField body="clientID" type="string" required={true}>
+  Your Captain user ID.
+</ParamField>
+
+### Response
+
+<ResponseField name="presignedUrl" type="string">
+  AWS Hyperlink (or proxy hosted through data.runcaptain.com) to access the file.
+</ResponseField>
+
+<ResponseField name="success" type="boolean">
+  Indicates if the URL generation was successful.
+</ResponseField>
+
+<ResponseField name="error" type="string">
+  Error message if URL generation failed.
+</ResponseField>
+
+### Example Request
+
+```bash
+curl -X POST https://api.runcaptain.com/presign-url \
+  -H "Content-Type: application/json" \
+  -d '{
+    "uniqueFileID": "file123",
+    "fileBucketName": "product-docs",
+    "apiKey": "your_api_key",
+    "clientID": "your_client_id"
+  }'
+```
+
+### Example Response
+
+```json
+{
+  "presignedUrl": "https://data.runcaptain.com/access/product-docs/file123?signature=abc123...",
+  "success": true
+}
+```
